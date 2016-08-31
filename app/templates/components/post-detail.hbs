@@ -1,6 +1,9 @@
 <div id="detail_post">
-	<h5>{{post.title}}</h5>
+	<h3 ><a href={{post.link}}>{{post.title}}</a></h3>
 	<div>{{post.author}}</div>
-	<div>{{post.content}}</div>
+	<div innerHTML={{post.content}}></div>
+	<div id="post_info">
+		<p>Post statistics</p>
+	</div>
 </div>
 

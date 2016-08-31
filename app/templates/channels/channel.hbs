@@ -1,10 +1,16 @@
-{{outlet}}
-<div>
-	{{#each model as |post|}}
-		<p {{action "selectPost" post}}>{{post.title}}</p>
-	{{/each}}
+<div class="col-md-4">
+	<div>
+		<table class="table table-hover">
+			<tbody>
+				{{#each model as |post|}}
+					<tr>					
+						<td class="break_all pointer"><p {{action "selectPost" post}}>{{post.title}}</p></td>				
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
 </div>
-
-{{post-detail post=selectedPost}}
-{{selectedPost.title}}
-
+<div class="col-md-6">
+	{{post-detail post=selectedPost}}
+</div>

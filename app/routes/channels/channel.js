@@ -53,7 +53,7 @@ export default Ember.Route.extend({
 
 			 self.get('store').findRecord('channel', channel_id).then((resp) => {
 				
-			 	var FEED_URL = resp.get('name');
+			 	var FEED_URL = resp.get('url');
 			 	$.ajax({
 				  type: 'GET',
 				  dataType : 'json',
