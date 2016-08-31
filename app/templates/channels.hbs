@@ -1,0 +1,17 @@
+<h1>Rss channels</h1>
+{{#each model as |channel|}}
+	<button>
+		{{#link-to "channels.channel" channel.id}}
+			{{channel.name}}
+		{{/link-to}}
+	</button>
+{{/each}}
+
+
+{{input value=newChannelName placeholder="url"}}
+{{input value=newChannelUrl placeholder="name"}}
+<h3><button {{action "addChannel"}}>save new channel</button></h3>
+
+{{outlet}}
+
+

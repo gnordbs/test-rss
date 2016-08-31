@@ -1,0 +1,10 @@
+{{outlet}}
+<div>
+	{{#each model as |post|}}
+		<p {{action "selectPost" post}}>{{post.title}}</p>
+	{{/each}}
+</div>
+
+{{post-detail post=selectedPost}}
+{{selectedPost.title}}
+
