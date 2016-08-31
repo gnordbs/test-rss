@@ -1,10 +1,8 @@
 <h1>Rss channels</h1>
 {{#each model as |channel|}}
-	<button>
-		{{#link-to "channels.channel" channel.id}}
-			{{channel.name}}
-		{{/link-to}}
-	</button>
+	{{#link-to "channels.channel" channel.id class="btn btn-default"}}
+		{{channel.name}}
+	{{/link-to}}
 {{/each}}
 
 
