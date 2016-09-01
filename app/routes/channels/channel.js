@@ -4,6 +4,9 @@ export default Ember.Route.extend({
 	actions: {
 		selectPost(post) {
 			this.controller.set('selectedPost', post);
+			$('html, body').animate({
+		        scrollTop: $("#post-detail").offset().top
+		    }, 1000);
 		},
 		removeChannel(channel_id){
 			var channelToDelete = this.store.peekRecord('channel', channel_id);

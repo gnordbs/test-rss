@@ -5,3 +5,12 @@
 .spacer {
 	margin-top: 50px;
 }
+
+.list-scroll {
+	height: 800px;
+	overflow-y:scroll;
+}
+
+.detail-post img {
+	max-width: 100%;
+}

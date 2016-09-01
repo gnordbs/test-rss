@@ -4,28 +4,25 @@
 		<div>
 			
 				Новостей {{statsNumOfPosts}}/ авторов {{statsNumOfAuthors}}	
-				<span class="pull-right">
+				<span class="text-right">
 					<button {{action "removeChannel" model.channel_id}} class="btn btn-default btn-xs">Delete</button>
 				</span>
 				
 		</div>
-		<div style="height:800px;overflow:auto;">
-			<table class="table table-hover">
-				<tbody>
-					{{#each model.entries as |post|}}
-						<tr>					
-							<td class="break_all pointer"><p {{action "selectPost" post}}>{{post.title}}</p></td>				
-						</tr>
-					{{/each}}
-				</tbody>
-			</table>
+		<div class="list-scroll">
+			<ul class="list-group">
+				{{#each model.entries as |post|}}
+					 <li class="list-group-item pointer" {{action "selectPost" post}}>{{post.title}}</li>
+				{{/each}}			
+			</ul>
+			
 		</div>
 	</div>
 	<div>
 	</div>
 </div>
 <div class="col-md-6">
-	<div>
+	<div id="post-detail">
 		{{post-detail post=selectedPost}}
 	</div>
 	{{#if selectedPost}}
@@ -36,7 +33,3 @@
 		</div>
 	{{/if}}
 </div>
-
-
-
-

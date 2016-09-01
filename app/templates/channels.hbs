@@ -1,16 +1,19 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2">
-			<h1>Rss channels</h1>
-			{{#each model as |channel|}}
-				<div>
-				{{#link-to "channels.channel" channel.id class="btn btn-default"}}
-					{{channel.name}}
-				{{/link-to}}
-				</div>
-			{{/each}}
+			<h1>Rss feeds</h1>
+			<div>
+				{{#each model as |channel|}}
+					<ul class="list-group">
+						{{#link-to "channels.channel" channel.id}}
+							
+							 <li class="list-group-item pointer">{{channel.name}}</li>
+						{{/link-to}}
+					</ul>	
+				{{/each}}
+			</div>
 
-			<div class="spacer">
+			<div class="spacer text-left">
 				<form class="form-horizontal" >
 					<div class="form-group">
 						<div class="col-sm-10">
@@ -33,9 +36,3 @@
 		<div class="col-md-10">{{outlet}}</div>
 	</div>
 </div>
-
-
-
-
-
-
