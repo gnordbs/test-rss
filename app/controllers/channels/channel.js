@@ -5,19 +5,22 @@ export default Ember.Controller.extend({
 	channelId: null,
 	selectedPostStats: Ember.computed('selectedPost', function() {
 		function count(str, out, i){ 
-			if(i >= str.length)
+			if(i >= str.length){
 				return out;
-			if(!out[str.charAt(i)])
+			}
+			if(!out[str.charAt(i)]){
 				out[str.charAt(i)] = 1;
-			else
+			}
+			else{
 				out[str.charAt(i)] += 1;
+			}
 			return count(str, out, i+1);
 		}
 
 		function getRelativeRate(freq){ 
 			var dataArray = [];
 			var totalAmmount = 0;
-			$.each(freq, function(index, value) {
+			Ember.$.each(freq, function(index, value) {
 				if(/[a-z]+/.test(index)){
 					dataArray.push({
 						value: value,
@@ -25,7 +28,6 @@ export default Ember.Controller.extend({
 						color:"#F7464A",
 						highlight: "#FF5A5E",
 					});
-					console.log(index, value);
 				} else {
 					totalAmmount+= value;
 				}
@@ -39,19 +41,19 @@ export default Ember.Controller.extend({
 			var sortedArray = dataArray.sort(function(a, b) {
 				  return b.value - a.value;
 				});
-			return sortedArray
+			return sortedArray;
 		}
 
-		var str = $('#detail_post').text();
+		var str = Ember.$('#detail_post').text();
 		if(str){
-			//console.log("string = ",str);
 			var frequences = count(str.toLowerCase(), {}, 0);
-			//console.log("frequences", frequences);
 			return getRelativeRate(frequences);
-		} else return [];
+		} else {
+			return [];
+		}
 	}),
 	pieOptions : {
-  	  animation : false,  // Edit: correction typo: from 'animated' to 'animation'
+  	  animation : false,  
 	},
 	statsNumOfPosts:  Ember.computed('model', function() {
 		var post = this.get('model');
@@ -70,21 +72,21 @@ export default Ember.Controller.extend({
 				authors.push(item.author);
 			});
 
-			function GetUnique(inputArray) {
+			var getUnique = function(inputArray) {
 			    var outputArray = [];
 			    
 			    for (var i = 0; i < inputArray.length; i++)
 			    {
-			        if (($.inArray(inputArray[i], outputArray)) == -1)
+			        if ((Ember.$.inArray(inputArray[i], outputArray)) === -1)
 			        {
 			            outputArray.push(inputArray[i]);
 			        }
 			    }
 			   
 			    return outputArray;
-			}
+			};
 
-			return GetUnique(authors).length;
+			return getUnique(authors).length;
 		} else {
 			return 0;
 		} 

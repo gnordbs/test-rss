@@ -5,8 +5,7 @@
 			<div>
 				{{#each model as |channel|}}
 					<ul class="list-group">
-						{{#link-to "channels.channel" channel.id}}
-							
+						{{#link-to "channels.channel" channel.id}}						
 							 <li class="list-group-item pointer">{{channel.name}}</li>
 						{{/link-to}}
 					</ul>	
@@ -27,7 +26,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-default" {{action "addChannel"}}>Add feed</button>
+							<button type="submit" class="btn btn-default text-left" {{action "addChannel"}}>Add feed</button>
 						</div>
 					</div>
 				</form>

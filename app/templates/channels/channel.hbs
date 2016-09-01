@@ -1,13 +1,11 @@
 <div class="col-md-4">
 	<div>
 		<h3>{{model.title}}</h3>
-		<div>
-			
-				Новостей {{statsNumOfPosts}}/ авторов {{statsNumOfAuthors}}	
-				<span class="text-right">
-					<button {{action "removeChannel" model.channel_id}} class="btn btn-default btn-xs">Delete</button>
-				</span>
-				
+		<div>			
+			Posts {{statsNumOfPosts}}/ authors {{statsNumOfAuthors}}	
+			<span class="text-right">
+				<button {{action "removeChannel" model.channel_id}} class="btn btn-default btn-xs">Delete</button>
+			</span>			
 		</div>
 		<div class="list-scroll">
 			<ul class="list-group">
@@ -27,9 +25,9 @@
 	</div>
 	{{#if selectedPost}}
 		<div class="spacer">
-			<p>Статистика по сообщению</p>
+			<p>Post statistics</p>
 			{{ember-chart type='Pie' data=selectedPostStats width=400 height=400 options=pieOptions}}
-			<p>Частоты появления букв латинского алфавита</p>
+			<p>Latin letter frequency</p>
 		</div>
 	{{/if}}
 </div>
