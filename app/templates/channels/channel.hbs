@@ -1,16 +1,42 @@
 <div class="col-md-4">
 	<div>
-		<table class="table table-hover">
-			<tbody>
-				{{#each model as |post|}}
-					<tr>					
-						<td class="break_all pointer"><p {{action "selectPost" post}}>{{post.title}}</p></td>				
-					</tr>
-				{{/each}}
-			</tbody>
-		</table>
+		<h3>{{model.title}}</h3>
+		<div>
+			
+				Новостей {{statsNumOfPosts}}/ авторов {{statsNumOfAuthors}}	
+				<span class="pull-right">
+					<button {{action "removeChannel" model.channel_id}} class="btn btn-default btn-xs">Delete</button>
+				</span>
+				
+		</div>
+		<div style="height:800px;overflow:auto;">
+			<table class="table table-hover">
+				<tbody>
+					{{#each model.entries as |post|}}
+						<tr>					
+							<td class="break_all pointer"><p {{action "selectPost" post}}>{{post.title}}</p></td>				
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div>
 	</div>
 </div>
 <div class="col-md-6">
-	{{post-detail post=selectedPost}}
+	<div>
+		{{post-detail post=selectedPost}}
+	</div>
+	{{#if selectedPost}}
+		<div class="spacer">
+			<p>Статистика по сообщению</p>
+			{{ember-chart type='Pie' data=selectedPostStats width=400 height=400 options=pieOptions}}
+			<p>Частоты появления букв латинского алфавита</p>
+		</div>
+	{{/if}}
 </div>
+
+
+
+

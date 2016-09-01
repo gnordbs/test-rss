@@ -1,46 +1,4 @@
 import Ember from 'ember';
-/*
-export default Ember.Route.extend({
-	model() {
-		var FEED_URL = "https://habrahabr.ru/rss/hub/programming/";
-
-		return	$.ajax({
-		  url      : document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(FEED_URL),
-		  dataType : 'json',
-		  success  : function (data) {
-			if (data.responseData.feed && data.responseData.feed.entries) {
-			  $.each(data.responseData.feed.entries, function (i, e) {
-				console.log("------------------------");
-				console.log("title      : " + e.title);
-				console.log("author     : " + e.author);
-				console.log("description: " + e.description);
-			  });
-			}
-		  }
-		});
-	}
-});*/
-
-
-var channels = [
-	{url:"https://habrahabr.ru/rss/hub/programming/", name: "habr"},
-	{url:"https://lenta.ru/rss/news ", name: "lenta"}
-	
-];
-
-/*
-export default Ember.Route.extend({
-	actions: {
-		selectChannel(){
-
-		}
-	},
-	model() {
-		return channels;
-	},
-
-});*/
-
 
 export default Ember.Route.extend({
 	actions: {
@@ -54,18 +12,36 @@ export default Ember.Route.extend({
 				}, function(reason) {
 					// on rejection
 				});
-		},
-		testFunc(){
-			this.store.createRecord('channel', {url:"https://habrahabr.ru/rss/hub/programming/", name: "habr"});
-		},
-		
+		},	
 		addChannel(){
 			var newUrl = this.controller.get('newChannelUrl');
 			var newName = this.controller.get('newChannelName');
-			var newChannel = this.store.createRecord('channel', {url:newUrl, name: newName});
 
+			if(newUrl && newName) {
+				this.getNewsList(newUrl).then(
+				(resp) => {
+					if(!resp.responseData) {
+						alert(resp.responseDetails);
+					} else {
+						var newChannel = this.store.createRecord('channel', {url:newUrl, name: newName});
+						newChannel.save();
+
+						this.controller.set('newChannelUrl', "");
+						this.controller.set('newChannelName', "");
+					}
+				}, 
+				(error) => {
+					alert(error);
+				}); 
+			}
+
+/*
+
+			var newChannel = this.store.createRecord('channel', {url:newUrl, name: newName});
 			newChannel.save();
 
+			var newUrl = this.controller.set('newChannelUrl', "");
+			var newName = this.controller.get('newChannelName', "");*/
 		}
 	},
 	model() {
@@ -75,19 +51,41 @@ export default Ember.Route.extend({
 		var result = [];
 		var FEED_URL = rssUrl;
 		return new Ember.RSVP.Promise(function (resolve, reject) {
-		$.ajax({
-		  type: 'GET',
-		  dataType : 'json',
-		  url:  document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(FEED_URL),
-		  success: function (data) {
-		  	console.log(data);
-		    resolve(data.responseData.feed.entries);
-		  },
-		  error: function (request, textStatus, error) {
-		    console.log(error);
-		    reject(error);
-		  }
+			$.ajax({
+			  type: 'GET',
+			  dataType : 'json',
+			  url:  document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(FEED_URL),
+			  success: function (data) {
+			    resolve(data);
+			  },
+			  error: function (request, textStatus, error) {
+			    console.log(error);
+			    reject(error);
+			  }
+			});
 		});
-		});
+	},
+	getNewsForChannel(channel_id) {
+		var self = this;
+		return new Ember.RSVP.Promise(function (resolve, reject) {
+
+			 self.get('store').findRecord('channel', channel_id).then((resp) => {
+				
+			 	var FEED_URL = resp.get('url');
+			 	$.ajax({
+				  type: 'GET',
+				  dataType : 'json',
+				  url:  document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=200&callback=?&q=' + encodeURIComponent(FEED_URL),
+				  success: function (data) {
+				  	//
+				  	data.responseData.feed.channel_id = channel_id;
+				    resolve(data.responseData.feed);
+				  },
+				  error: function (request, textStatus, error) {
+				    reject(error);
+				  }
+				});
+			});
+		});	
 	},
 });

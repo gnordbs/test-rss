@@ -1,3 +1,7 @@
-.pointer tr {
+.pointer {
     cursor: pointer;
+}
+
+.spacer {
+	margin-top: 50px;
 }

@@ -10,27 +10,31 @@
 				</div>
 			{{/each}}
 
-			<form class="form-horizontal">
-				<div class="form-group">
-					<div class="col-sm-10">
-						{{input value=newChannelUrl placeholder="url"}}
+			<div class="spacer">
+				<form class="form-horizontal" >
+					<div class="form-group">
+						<div class="col-sm-10">
+							{{input value=newChannelUrl placeholder="url"}}
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-10">
-						{{input value=newChannelName placeholder="name"}}
+					<div class="form-group">
+						<div class="col-sm-10">
+							{{input value=newChannelName placeholder="name"}}
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default" {{action "addChannel"}}>Add feed</button>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-default" {{action "addChannel"}}>Add feed</button>
+						</div>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 		<div class="col-md-10">{{outlet}}</div>
 	</div>
 </div>
+
+
 
 
 
